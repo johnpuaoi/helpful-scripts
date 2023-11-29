@@ -41,11 +41,23 @@ function Copy-WithProgress {
 }
 
 Write-Host "Waiting for source folder selection..." -ForeGroundColor Cyan
+
 $source = Select-FolderDialog -Description "Select source folder"
+
+# Output the selected folder
+if ($source -ne "") {
+    Write-Host "Selected source folder: $source"
+} else {
+    Write-Host "No source folder selected. Operation cancelled."
+    exit
+}
+
 Write-Host "Waiting for destination folder selection..." -ForeGroundColor Cyan
+
 $destination = Select-FolderDialog -Description "Select destination folder"
 
 if ($destination -ne "") {
+     Write-Host "Selected destination folder: $destination"
     try {
         Copy-WithProgress -sourceFolder $source -destinationFolder $destination
         Write-Host "Copy operation completed successfully."
